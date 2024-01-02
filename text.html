@@ -1,0 +1,2426 @@
+<head>
+  <style>
+    input,
+    label {
+      border: none;
+      color: white;
+      padding: 16px 64px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-family: arial;
+      margin: 4px 2px;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    select {
+      border: none;
+      color: white;
+      padding: 16px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    .button {
+      border: none;
+      color: white;
+      padding: 16px 64px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    .button:hover {
+      background-color: black;
+      color: white;
+    }
+
+    linkButton {
+      border: none;
+      color: white;
+      padding: 10px 58px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    linkButton:hover {
+      background-color: black;
+      color: white;
+    }
+
+    left {
+      width: 33%;
+      height: 80%;
+      float: left;
+      top: 0;
+      bottom: 0;
+      -webkit-mask-image: linear-gradient(white 60%, transparent 100%);
+      mask-image: linear-gradient(white 60%, transparent 100%);
+      overflow-y: hidden;
+    }
+
+    middle {
+      width: 43%;
+      float: left;
+
+    }
+
+    right {
+      width: 20%;
+      float: left;
+      border: 2px solid black;
+    }
+
+    p {
+      text-align: left;
+      margin: 10;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #secret {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #popup {
+      max-width: 400px;
+      max-height: 200;
+      margin: auto;
+      background-color: white;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    links {
+      position: absolute;
+      bottom: 1;
+      right: 0;
+    }
+
+    .popupButton {
+      width: 50%;
+      height: 60%;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    .popupButton:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .popupText {
+      font-size: 20px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+  </style>
+  <title>Survival Island</title>
+</head>
+
+<body>
+  <div id="overlay">
+    <div id="popup">
+
+    </div>
+  </div>
+  <div id="secret" onclick="secret(2);" muted="true"><iframe
+      style="margin: auto;position:absolute;top:0;bottom:0;left:0;right:0;"
+      src="https://scratch.mit.edu/projects/72798680/embed" allowtransparency="true" width="485" height="402"
+      frameborder="0" scrolling="no" allowfullscreen></iframe></div>
+  <div>
+    <left id="events"></left>
+    <middle id="buttons"></middle>
+    <right id="variables" onclick="secret(1);"></right>
+  </div>
+  <links>
+    <div>
+      <linkButton
+        onclick="window.open('https://docs.google.com/document/d/1I9nuWuLzT5vEwFQf1xs0lbO2gafEIwsmYX4P0cGeN08/edit', '_self')">
+        Google Doc</linkButton>
+    </div>
+    <div>
+      <linkButton onclick="window.open('https://discord.gg/b8Knk2Xfpz', '_self')">
+        Discord</linkButton>
+    </div>
+    <div>
+      <linkButton onclick="settings();">settings</linkButton>
+    </div>
+    <div>
+      <linkButton onclick="savegame();">save</linkButton>
+    </div>
+  </links>
+  <script>
+    //for later
+    //<link rel="icon" type="image/png" href="link to image">
+    //^code for giving the site an icon
+    //define variables
+    var events = {
+      one: "",
+      two: "",
+      three: "",
+      four: "",
+      five: "",
+      six: "",
+      seven: "",
+      eight: "",
+      nine: "",
+      ten: ""
+    };
+    var item = {
+      axe: 0,
+      pickaxe: 0,
+      fire: 0,
+      fire2: 0,
+      knife: 0,
+      jacket: 0,
+      medkit: 0,
+      blanket: 0,
+      fan: 0,
+      fishingRod: 0
+    };
+    var resource = {
+      wood: 0,
+      stone: 0,
+      sticks: 0,
+      fur: 0
+    };
+    var food = {
+      berries: 0,
+      rawMeat: 0,
+      cookedMeat: 0,
+      fish: 0,
+      cookedFish: 0
+    };
+    var building = {
+      shelter: 0,
+      shelter2: 0,
+      shed: 0,
+      shed2: 0,
+      stash: 0
+    };
+    var ask = {
+      variables: "",
+      event: ""
+    };
+    var trade = {
+      Stick: 1,
+      Wood: 1,
+      Stone: 1,
+      Rate: 1,
+      Ammount: 1
+    };
+    var hunger = 0;
+    var mauled = 0;
+    var action = 0;
+    var turn = 1;
+    var whatCraft = "";
+    var canCraft = 0;
+    var crafterFindTurn = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+    var fireTurn = "";
+    var fire2Turn = "";
+    var BuilderFindTurn = Math.floor(Math.random() * (40 - 20 + 1) + 20);
+    var canBuild = "";
+    var whatBuild = "";
+    var areyoupoisoned = "";
+    var nextThunderstorm = Math.floor(Math.random() * (30 - 20 + 1) + 20);
+    var nextStranger = Math.floor(Math.random() * (30 - 20 + 1) + 20);
+    var strangeResource = "stone";
+    var whentrade = Math.floor(Math.random() * (55 - 40 + 1) + 40);
+    var canTrade = 0;
+    var heat = 35;
+    var canDie = 1;
+    var x;
+    var searchNum = 0;
+    var hungerClicked = 0;
+    var season = "Summer";
+    var nextSeason = 15;
+    var holeTurn = 0;
+    var axetime = 0;
+    var knifetime = 0;
+    var picktime = 0;
+    var fishtime = 0;
+    var meatTime = 0;
+    var cmeatTime = 0;
+    //checks if there is anything stored based on wheather hunger is nothing
+    if (getStorage("hunger") == null) {
+      //if you are a new user sets settigns and tells you the senario
+      setStorage("confirmClose", "no");
+      setStorage("aboutBlank", "no");
+      setStorage("autoSave", "yes");
+      event("your plane just crashed in the jungle and you have to survive. You are the only survivor that you can see, they will notice and send a rescue crew but you dont know how long it will take");
+      event("If hunger is 10, heat is 0 or heat is 40 then you die.");
+      event("The season is summer, it is verry hot your heat will increse by 2 each turn, food is not too hard to find.")
+    } else {
+      //if you have aboutblank on it redirects
+      if (getStorage("aboutBlank") == "yes") {
+        if (window.self == window.top) {
+          var tab = window.open('about:blank', '_blank');
+          if (tab != null) {
+            tab.document.documentElement.innerHTML = '<!DOCTYPE html><html><head><title>Classes</title><link rel="icon" type="image/png" href="https://ssl.gstatic.com/classroom/favicon.png"><style>body {margin:0;overflow:hidden}</style></head><body><iframe width="100%" height="100%" src="' + window.location.href + '" frameborder="0"></iframe></body></html>';
+            tab.document.close();
+            window.location.replace("https://classroom.google.com/h");
+          } else {
+            alert("failed to about blank cloak");
+          }
+        }
+      }
+      //if you have confirm close on it does that
+      if (getStorage("confirmClose") == "yes") {
+        window.onbeforeunload = function () {
+          return "wow someone knows code";
+        };
+      }
+      //sets all the variable to thier storage value
+      item.axe = getStorage("axe");
+      item.pickaxe = getStorage("pickaxe");
+      item.fire = getStorage("fire");
+      item.kife = getStorage("kife");
+      item.fan = getStorage("fan");
+      item.blanket = getStorage("blanket");
+      item.medkit = getStorage("medkit");
+      resource.wood = getStorage("wood");
+      resource.stone = getStorage("stone");
+      resource.sticks = getStorage("sticks");
+      food.berries = getStorage("berries");
+      food.rawMeat = getStorage("rMeat");
+      food.fish = getStorage("rfish");
+      food.cookedFish = getStorage("cfish");
+      food.cookedMeat = getStorage("cMeat");
+      building.shelter = getStorage("shelter");
+      building.shelter2 = getStorage("shelter2");
+      building.shed = getStorage("shed");
+      building.shed2 = getStorage("shed2");
+      trade.Stick = getStorage("Tstick");
+      trade.Wood = getStorage("Twood");
+      trade.Stone = getStorage("Tstone");
+      trade.Rate = getStorage("Trate");
+      trade.Ammount = getStorage("Tammount");
+      resource.fur = getStorage("fur");
+      item.jacket = getStorage("jacket");
+      item.fire2 = getStorage("fire2");
+      nextStranger = getStorage("nextStranger");
+      strangeResource = getStorage("strangeResource");
+      hunger = getStorage("hunger");
+      action = 0;
+      turn = getStorage("turn");
+      whatCraft = "";
+      canCraft = getStorage("canCraft");
+      crafterFindTurn = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+      fireTurn = getStorage("fireTurn");
+      fire2Turn = getStorage("fire2Turn");
+      BuilderFindTurn = Math.floor(Math.random() * (40 - 20 + 1) + 20);
+      canBuild = getStorage("canBuild");
+      whatBuild = "";
+      areyoupoisoned = getStorage("areyoupoisoned");
+      nextThunderstorm = getStorage("nextThunderstorm");
+      whentrade = Math.floor(Math.random() * (55 - 40 + 1) + 40);
+      canTrade = getStorage("canTrade");
+      heat = getStorage("heat");
+      canDie = getStorage("canDie");
+      holeTurn = getStorage("hole");
+      season = getStorage("season");
+      nextSeason = getStorage("nextSeason");
+      axetime = getStorage("axetime");
+      knifetime = getStorage("knifetime");
+      picktime = getStorage("picktime");
+      fishtime = getStorage("fishtime");
+      meatTime = getStorage("meatTime");
+      cmeatTime = getStorage("cmeatTime");
+      event(getStorage("e10"));
+      event(getStorage("e9"));
+      event(getStorage("e8"));
+      event(getStorage("e7"));
+      event(getStorage("e6"));
+      event(getStorage("e5"));
+      event(getStorage("e4"));
+      event(getStorage("e3"));
+      event(getStorage("e2"));
+      event(getStorage("e1"));
+    }
+    if (getStorage("autoSave") == "yes") {
+      //starts saving after 1 second
+      setTimeout(function () {
+        //saves game every 2 seconds
+        var autoSave = setInterval(savegame, 2000);
+      }, 1000);
+    }
+    //start
+    menu();
+
+    function variables() {
+      //makes variables
+      ask.variables = "<div></div>"; //(building.shelter == 1 || building.shelter2 == 1) outputs 1 if you have either building
+      //parseInt makes sure that it things its a number not a string(so it ads like this 1+2=3 not like this 1+2=12)            
+      ask.variables += "<p>end of turn: +1 hunger " + (-1 + parseInt(item.fire2 * 3 + item.fire * 3) + parseInt(item.jacket + item.blanket) + parseInt(0 + (building.shelter == 1 || building.shelter2 == 1)) + parseInt((season == "Summer") * 3) + parseInt(0 - (season == "winter"))) + " heat </p> ";
+      ask.variables += "<p>turn: " + turn + "</p>";
+      ask.variables += "<p>heat: " + heat + "</p>";
+      ask.variables += "<p>berries: " + food.berries + "</p>";
+      ask.variables += "<p>hunger: " + hunger + "</p>";
+      ask.variables += "<p>stone: " + resource.stone + "</p>";
+      ask.variables += "<p>sticks: " + resource.sticks + "</p>";
+      if ((item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+        ask.variables += "<p>fur: " + resource.fur + "</p>";
+      }
+      if ((item.axe == 1 || resource.wood != 0) && (item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+        ask.variables += "<p>has fire: " + item.fire + "</p>";
+      }
+      if ((item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+        ask.variables += "<p>raw meat: " + food.rawMeat + "</p>";
+      }
+      if ((item.axe == 1 || resource.wood != 0)) {
+        ask.variables += "<p>wood: " + resource.wood + "</p>";
+      }
+      if ((item.axe == 1 || resource.wood != 0) && (item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+        ask.variables += "<p>cooked meat: " + food.cookedMeat + "</p>";
+      }
+      if (item.fishingRod != 0 || food.fish != 0 || food.cookedFish != 0) {
+        ask.variables += "<p>fish: " + food.fish + "</p>";
+      }
+      if (item.fishingRod != 0 || food.fish != 0 || food.cookedFish != 0) {
+        ask.variables += "<p>cooked fish: " + food.cookedFish + "</p>";
+      }
+      if (canBuild == 1) {
+        if (building.shelter2 == 1) {
+          ask.variables += "<p>has shelter: yes and its strong</p>";
+        } else {
+          if (building.shelter == 1) {
+            ask.variables += "<p>has shelter: yes</p>";
+          } else {
+            ask.variables += "<p>has shelter: no</p>";
+          }
+        }
+      }
+      ask.variables += "<p>season: " + season + "</p>";
+      //adds the variables to the variables box
+      document.getElementById("variables").innerHTML = ask.variables;
+    }
+    //set menu
+
+    function menu() {
+      //update the variables
+      variables();
+      //delete all the current buttons
+      clearButtons();
+      //create all the needed buttons
+      newButton("eat", "eat();");
+      if (canCraft == 1) {
+        newButton("craft", "craft();");
+      }
+      if (item.fire == 1) {
+        newButton("cook", "cook();");
+      }
+      if (canBuild == 1) {
+        newButton("build", "buildMenu();");
+      }
+      if (canTrade == 1) {
+        newButton("trade", "trading();");
+      }
+      newButton("gather berries", "berries();");
+      if (item.pickaxe == 1) {
+        newButton("mine stone", "mine();");
+      } else {
+        newButton("look for stone", "findStone();");
+      }
+      newButton("look for sticks", "sticks();");
+      if ((item.knife == 1)) {
+        newButton("hunt", "hunt();");
+      }
+      if ((item.axe == 1)) {
+        newButton("use axe", "chop();");
+      }
+      newButton("Search for survivors", "search();");
+      newButton("suicide, kills you (duh)", "suicide();");
+            if ((-1 + parseInt(item.fire2 * 3 + item.fire * 3) + parseInt(item.jacket + item.blanket) + parseInt(0 + (building.shelter == 1 || building.shelter2 == 1)) + parseInt((season == "Summer") * 3) + parseInt(0 - (season == "winter"))) > 0) {
+        newButton("cool down", "cool();");
+      }
+       if (searchNum < 20) {
+        newButton("search plane wreck", "plane();");
+      }
+      if (item.medkit > 0) {
+        newButton("use med kit", "medKit();");
+      }
+      if (item.fan > 0) {
+        newButton("use fan", "fan();");
+      }
+      if (item.fishingRod > 0) {
+        newButton("fish", "fish();");
+      }
+      if (item.fishingRod > 0 && item.axe == 1 && season == "Winter" && holeTurn < turn) {
+        newButton("Make a hole in the pond", "hole();")
+      }
+      if (season == "Fall") {
+          newButton("Make a stash in the ground for Winter to hold food", "stash();");
+      }
+    }
+    //hole(for fishing)
+
+    function hole() {
+      event("You make a hole in the pond with your axe so you can fish, it should last a few turns.");
+      holeTurn = turn + 5;
+    }
+    //settings
+
+    function settings() {
+      //clears what was previously in the popup
+      clearPopup();
+      //adds the text
+      popupText("Settings(WIP as you can tell)");
+      //adds the close button
+      newPopupButton("close settings", "hidePopup();");
+      //adds the other buttons based on storage
+      if (getStorage("aboutBlank") == "no") {
+        newPopupButton("enable about blank cloaking(needs popup permission)", "aboutBlank();");
+      } else {
+        newPopupButton("disable about blank cloaking", "aboutBlank();");
+      }
+      if (getStorage("confirmClose") == "no") {
+        newPopupButton("enable confirm before close", "confirmClose();");
+      } else {
+        newPopupButton("disable confirm before close", "confirmClose();");
+      }
+      if (getStorage("autoSave") == "yes") {
+        newPopupButton("disable autosave", "doAutoSave();");
+      } else {
+        newPopupButton("enable autosave", "doAutoSave();");
+      }
+      showPopup();
+    }
+
+    //enable and disable autosave
+
+    function doAutoSave() {
+      if (getStorage("autoSave") == "no") {
+        setStorage("autoSave", "yes");
+        var autoSave = setInterval(savegame, 2000);
+      } else {
+        setStorage("autoSave", "no");
+        clearInterval(autoSave);
+      }
+      settings();
+    }
+
+    //about blank cloaking
+
+    function aboutBlank() {
+      if (getStorage("aboutBlank") == "no") {
+        popupCheck = null;
+        window.alert("you will need to allow popups after the site reloads");
+        setStorage("aboutBlank", "yes");
+        location.reload();
+      } else {
+        setStorage("aboutBlank", "no");
+      }
+      settings();
+    }
+    //confirm before closing
+
+    function confirmClose() {
+      if (getStorage("confirmClose") == "no") {
+        setStorage("confirmClose", "yes");
+      } else {
+        setStorage("confirmClose", "no");
+      }
+      settings();
+    }
+    //fish
+
+    function fish() {
+      clearButtons();
+      newButton("back", "menu();");
+      newButton("fish with bait(more fish -1 rawMeat)", "fishing(1);");
+      newButton("fish without bait(less fish)", "fishing(0);");
+    }
+
+    function fishing(bait) {
+      //if its winter they need a hole
+      if (season != "Winter" || season == "Winter" && holeTurn > turn) {
+        //if bait is one the user is using a raw meat
+        if (bait == 1 && food.rawMeat == 0) {
+          event("you do not have raw meat to use as bait");
+        } else {
+          fishtime -= 1;
+          if (season == "Spring") {
+            if (random((bait * 3), 10) > 4) {
+              x = random((item.fishingRod * 2), 6);
+              event("you get " + x + " fish");
+              food.fish += random((item.fishingRod * 2), 10);
+            } else {
+              x = random(item.fishingRod, 3);
+              event("you get " + x + " fish");
+              food.fish += random(item.fishingRod, 5);
+            }
+          } else {
+            if (random((bait * 3), 10) > 4) {
+              x = random((item.fishingRod * 2), 10);
+              event("you get " + x + " fish");
+              food.fish += random((item.fishingRod * 2), 10);
+            } else {
+              x = random(item.fishingRod, 5);
+              event("you get " + x + " fish");
+              food.fish += random(item.fishingRod, 5);
+            }
+          }
+
+          endOfTurn();
+        }
+      } else {
+        if (item.axe == 1) {
+          event("The lake is forzen over, perhaps you could make a whole with you axe.")
+
+        } else {
+          event("The lake is forzen over, perhaps if you had an axe you could make a hole.")
+        }
+      }
+
+    }
+    //use fan
+
+    function fan() {
+      if (heat > 10) {
+        event("you use the fan -" + Math.round(heat / 2) + " heat");
+        heat = Math.round(heat / 2);
+      }
+    }
+    //use med kit
+
+    function medKit() {
+      item.medkit -= 1;
+      event("you use the med kit +2 heat -5 hunger");
+      heat += 2;
+      hunger -= 5;
+      if (hunger < 0) {
+        hunger = 0;
+      }
+      variables();
+    }
+    //search plane
+
+    function plane() {
+      searchNum += 1;
+      if (searchNum == 20) {
+        event("You go to where the plane was, but its been absorbed into the ocean, thankfully it wasnt far away so there is still time to do somthing else");
+      } else {
+        if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 1) {
+          if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 1) {
+            if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 1) {
+              if (item.blanket == 0) {
+                event("you find a blanket that will help keep you warm(heats you when heat is less than 20)");
+                item.blanket = 1;
+              } else {
+                event("you find a blanket but you already had one so you left it behind");
+              }
+            } else if (Math.floor(Math.random() * (2 - 1 + 1) + 1) == 1) {
+              if (item.fan == 0) {
+                event("you find a fan to help keep you cool");
+                item.fan = 1;
+              } else {
+                event("you find a fan but you already had one so you left it behind");
+              }
+            } else {
+              if (item.fishingRod == 0) {
+                event("you find a fishing rod for fishing");
+                item.fishingRod = 2;
+              } else if (item.fishingRod == 1) {
+                event("you find a fishing rod that is better than you current one");
+                item.fishingRod = 2;
+              } else {
+                event("you find a fishing rod but you already had one so you left it behind");
+              }
+            }
+          } else {
+            if (Math.floor(Math.random() * (2 - 1 + 1) + 1) == 1) {
+              event("you find a med kit(+heat and -hunger)");
+              item.medkit += 1;
+            } else {
+              event("you find some berries +3 berries");
+              food.berries += 3;
+            }
+          }
+        } else {
+          if (random(1, 3) == 1) {
+            event("you search for hours but find nothining,  thankfully on your walk back you find a stick +1 stick +1 hunger");
+            resource.sticks += 1;
+            hunger += 1;
+          } else if (random(1, 3) == 1) {
+            event("you search for hours but find nothining,  thankfully on your walk back you find a pice of stone +1 stone +1 hunger");
+            resource.stone += 1;
+            hunger += 1;
+          } else {
+            event("you search for hours but find nothining. +1 hunger");
+            hunger += 1;
+          }
+        }
+        endOfTurn();
+      }
+    }
+    //find berries
+
+    function berries() {
+      gainResource(1, "berries");
+    }
+    //eatmenu (not supposed to be here) lazy
+
+    function eat() {
+      if (hunger != 0) {
+        clearButtons();
+        newButton("back", "menu();");
+        newButton("eat berries - 2 hunger", "eatBerries();");
+        if ((item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+          newButton("eat raw Meat, hunger - 3", "eatRaw();");
+        }
+        if ((item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0) && (item.axe == 1 || resource.wood != 0)) {
+          newButton("eat cooked Meat, hunger - 5", "eatCooked();");
+        }
+        if (item.fishingRod == 1 || item.fishingRod == 2 || food.fish != 0 || food.cookedFish != 0) {
+          newButton("eat fish, hunger - 2", "eatFish(`raw`);");
+        }
+        if (item.fishingRod == 1 || item.fishingRod == 2 || food.fish != 0 || food.cookedFish != 0) {
+          newButton("eat cooked fish, hunger - 4", "eatFish(`cooked`);");
+        }
+      } else {
+        event("you are not hungry");
+        hungerClicked += 1
+        menu();
+        if (hungerClicked == 5) {
+          //cheat if you click hunger 5 times when ur full
+          canDie = 0;
+          // ^ stops you from dying
+          food.berries = 1000000000000;
+          food.rawMeat = 1000000000000;
+          food.cookedMeat = 1000000000000;
+          building.shelter2 = 1;
+          item.axe = 1;
+          item.pickaxe = 1;
+          item.knife = 1;
+          resource.wood = 1000000000000;
+          resource.stone = 1000000000000;
+          resource.sticks = 1000000000000;
+          building.shed2 = 1;
+          ask.event = "you have activated dev tools by pressing eat 5 times when you cant eat"
+          ask.event = ask.event + "\nturn:" + turn;
+          ask.event = ask.event + "\ncrafterfindturn:" + crafterFindTurn;
+          ask.event = ask.event + "\nbuilderfindturn:" + BuilderFindTurn;
+          ask.event = ask.event + "\nnextThunderstorm:" + nextThunderstorm;
+          ask.event = ask.event + "\nwhentrade:" + whentrade;
+          ask.event = ask.event + "\nare you poisond:" + areyoupoisoned;
+          ask.event = ask.event + "\nnext stranger:" + nextStranger;
+          ask.event = ask.event + "\n what turn do you want to be on"
+          turn = parseInt(window.prompt(ask.event));
+          variables();
+        }
+      }
+    }
+    function findStone() {
+      gainResource(1, "stone");
+    }
+
+    function mine() {
+      picktime -= 1;
+      gainResource(2, "stone");
+    }
+    //find others
+
+
+    function search() {
+      //search events
+      hunger = hunger + 1;
+      turnDone = 1; //if the turn is after a random number from 1 to 20 https://www.w3schools.com/js/js_random.asp
+      if (turn > crafterFindTurn && canCraft == 0) {
+        canCraft = 1;
+        event("You meet another survivor who is a craftsman he can craft stuff for you if you have the materials, but all the running around made you hungry +1 hunger");
+      } else if (turn > BuilderFindTurn && canBuild == 0) {
+        canBuild = 1;
+        event("You meet another survivor, he's a builder he can build structures for you if you have the materials, but all the running around made you hungry +1 hunger");
+      } else if (turn > whentrade && canTrade == 0) {
+        canTrade = 1;
+        event("You find a tribe of natives that are friendly and would be willing to trade with you, but all the running around made you hungry +1 hunger");
+      } else {
+        if (random(1, 3) == 1) {
+          event("you search for hours but find no one,  thankfully on your walk back you find a stick +1 stick +1 hunger");
+          resource.sticks += 1;
+          hunger += 1;
+        } else if (random(1, 3) == 1) {
+          event("you search for hours but find no one,  thankfully on your walk back you find a pice of stone +1 stone +1 hunger");
+          resource.stone += 1;
+          hunger += 1;
+        } else {
+          event("you search for hours but find no one. +1 hunger");
+          hunger += 1;
+        }
+      }
+      endOfTurn();
+    }
+    //find sticks
+
+    function sticks() {
+      gainResource(1, "sticks");
+    }
+
+    function cool() {
+      if (heat > 20) {
+        if (season == "Summer") {
+          heat = heat - 7;
+          event("You go outside and cool down, -5 heat");
+          endOfTurn();
+        }
+        if (season == "Fall") {
+          heat = heat - 4;
+          event("You go outside and cool down, -5 heat");
+          endOfTurn();
+        }
+        if (season == "Winter") {
+          heat = heat - 3;
+          event("You go outside and cool down, -5 heat. Why you cool down in Winter lmao.");
+          endOfTurn();
+        }
+        if (season == "Spring") {
+          heat = heat - 5;
+          event("You go outside and cool down, -5 heat");
+          endOfTurn();
+        }
+      } else {
+        event("You go outside but you're already cool enough.");
+        menu();
+      }
+    }
+    //craft menu
+
+    function craft() {
+      clearButtons();
+      newButton("back", "menu();");
+      document.getElementById("buttons").innerHTML += "<div><select onchange='updateInfo(" + '"craft"' + ");' id='craft'></select></div>";
+      addToDropdown("Knife", "craft");
+      addToDropdown("Axe", "craft");
+      addToDropdown("Fire", "craft");
+      addToDropdown("Big Fire", "craft");
+      addToDropdown("Pickaxe", "craft");
+      addToDropdown("Sticks", "craft");
+      addToDropdown("Jacket", "craft");
+      addToDropdown("Fishing Rod", "craft");
+      document.getElementById("buttons").innerHTML += "<div><label id='info'></label></div>";
+      updateInfo("craft");
+      newButton("craft", "crafting();");
+    }
+    //craft
+
+    function crafting() {
+      if (document.getElementById("craft").value == "Knife") {
+        craftKnife();
+        knifetime = random(15, 20);
+      } else if (document.getElementById("craft").value == "Axe") {
+        craftAxe();
+        axetime = random(5, 7);
+      } else if (document.getElementById("craft").value == "Fire") {
+        craftFire();
+      } else if (document.getElementById("craft").value == "Big Fire") {
+        craftBFire();
+      } else if (document.getElementById("craft").value == "Pickaxe") {
+        craftPic();
+        picktime = random(5, 7);
+      } else if (document.getElementById("craft").value == "Sticks") {
+        craftSticks();
+      } else if (document.getElementById("craft").value == "Jacket") {
+        craftJacket();
+      } else if (document.getElementById("craft").value == "Fishing Rod") {
+        craftFishRod();
+        fishtime = random(10, 15);
+      }
+    }
+    //hunt
+
+    function hunt() {
+      knifetime -= 1;
+      gainResource(1, "meat");
+    }
+    //chop
+
+    function chop() {
+      axetime -= 1;
+      gainResource(1, "wood");
+    }
+    //build menu
+
+    function buildMenu() {
+      //opens build menu
+      clearButtons();
+      newButton("back", "menu();");
+      document.getElementById("buttons").innerHTML += "<div><select onchange='updateInfo(" + '"build"' + ");' id='build'></select></div>";
+      addToDropdown("Shelter", "build");
+      addToDropdown("Strong Shelter", "build");
+      addToDropdown("Shed", "build");
+      addToDropdown("Big Shed", "build");
+      document.getElementById("buttons").innerHTML += "<div><label id='info'></label></div>";
+      updateInfo("build");
+      newButton("build", "build();");
+    }
+    //build
+
+    function build() {
+      if (document.getElementById("build").value == "Shelter") {
+        buildShelter();
+      } else if (document.getElementById("build").value == "Strong Shelter") {
+        buildSShelter();
+      } else if (document.getElementById("build").value == "Shed") {
+        buildShed();
+      } else if (document.getElementById("build").value == "Big Shed") {
+        buildBShed();
+      }
+    }
+
+    //cook
+
+    function cook(thing) {
+      if (food.rawMeat == 0 && food.cookedFish == 0 && food.cookedMeat == 0 && food.fish == 0 && item.blanket == 0) {
+        event("you dont have anything to cook");
+      } else {
+        clearButtons();
+        newButton("back", "menu();");
+        startDropdown("cook");
+        if (food.rawMeat > 0) {
+          addToDropdown("raw meat", "cook");
+        }
+        if (food.cookedMeat > 0) {
+          addToDropdown("cooked meat", "cook");
+        }
+        if (food.fish > 0) {
+          addToDropdown("fish", "cook");
+        }
+        if (food.cookedFish > 0) {
+          addToDropdown("cooked fish", "cook");
+        }
+        if (item.blanket > 0) {
+          addToDropdown("blanket", "cook");
+        }
+        newButton("cook", "cooking();");
+      }
+    }
+    //suicide  
+    function suicide() {
+      reset();
+    }
+    //trade	
+    function trading() {
+      clearButtons();
+      x = "<div><button class='button' onclick='menu();'>back</button></div><div><input id='getNum' onchange='updateCost();' type='number' placeholder='get this much'><select onchange='updateCost();' id='get'><option>Sticks</option><option>Stone</option><option>Wood</option></select></div><div><label id='giveNum'>give 0</label><select onchange='updateCost();' id='give'><option>Sticks</option><option>Stone</option><option>Wood</option></select></div><div><button class='button' onclick='doTrade();'>Confirm Trade</button></div>";
+      document.getElementById("buttons").innerHTML = x;
+    }
+    //end of turn
+
+    function endOfTurn() {
+      //reset easter egg
+      hungerClicked = 0;
+      //storyline events
+      //items break
+      if (axetime < 0 && item.axe == 1) {
+        item.axe = 0
+        event("Your axe broke.");
+      }
+      if (knifetime < 0 && item.knife == 1) {
+        item.knife = 0
+        event("Your knife broke.");
+      }
+      if (fishtime < 0 && fishtime == 1) {
+        item.fishingRod = 0
+        event("Your fishing Rod broke.");
+      }
+      if (picktime < 0 && item.pickaxe == 1) {
+        item.pickaxe = 0
+        event("Your pickaxe broke.");
+      }
+      //next season
+      if (turn > nextSeason) {
+        nextSeason = turn + 50;
+        if (season == "Spring") {
+          season = "Summer";
+          event("The season is summer, it is verry hot your heat will increse by 2 each turn, food is not too hard to find.")
+        } else if (season == "Summer") {
+          season = "Fall";
+          event("The season is fall, it is slightly cold your heat will go down by 1 each turn, berries are all over the place and meat is not too hard to find.")
+        } else if (season == "Fall") {
+          season = "Winter";
+          event("The season is Winter, it is very cold your heat will go down by 2 each turn, berries are nonixistant and meat is hard to find, you can't tell how many fish there are since the pond is frozen over.");
+
+        } else {
+          season = "Spring";
+          //hide stash option
+          //add ice fishing option
+          event("The season is sprint, it is slightly cold your heat will go down by 1 each turn, berries are not ripe yet and meat isnt too hard to find, although the fish are still recovering from winter, so they are scarce.")
+        }
+        popupText("The season is now " + season + ".");
+        newPopupButton("close popup", "hidePopup();");
+        showPopup();
+      }
+      //meat spoiling
+      //if you have it it increses the number
+      if (food.rawMeat > 0) {
+        meatTime += 1;
+      }
+      if (food.cookedMeat > 0) {
+        cmeatTime += 1;
+      }
+      //if youve had if for long enough you might lose some
+      if (meatTime > 3) {
+        if (food.rawmeat > 0) {
+          if (season == "Winter") {
+            if (random(1, 4) == 1) {
+              event("some of your raw meat went bad -1 raw meat");
+              food.rawMeat -= 1;
+            }
+          } else {
+            if (random(1, 3) != 1) {
+              event("some of your raw meat went bad -1 raw meat");
+              food.rawMeat -= 1;
+            }
+          }
+        }
+      }
+      if (cmeatTime > 7) {
+        if (food.cookedMeat > 0) {
+          if (season == "Winter") {
+            if (random(1, 4) == 1) {
+              event("some of your raw meat went bad -1 cooked meat");
+              food.cookedMeat -= 1;
+              cmeatTime = 5;
+            }
+          } else {
+            if (random(1, 3) != 1) {
+              event("some of your cooked meat went bad -1 cooked meat");
+              food.cookedMeat -= 1;
+              cmeatTime = 5;
+            }
+          }
+        }
+      }
+      //crafter suicide
+      if (turn == 450 && canCraft == 1 && (item.knife == 1 || food.rawMeat != 0 || food.cookedMeat != 0)) {
+        clearPopup();
+        popupText("The craftsman asks you to give him the knife for a minute.");
+        newPopupButton("Refuse to give the knife", 'craftsmanEscape("run");');
+        newPopupButton("Give the craftsman the knife", 'craftsmanEscape("knife");');
+        showPopup();
+      }
+      //thunderstorm
+      if (turn == nextThunderstorm) {
+        //decides items and heat based on your shelter
+        ask.event = "A strong thunderstorm happens while you sleep,";
+        if (building.shelter2 == 1) {
+          ask.event += " thankfully all your tools are safe becuse of your shelter that was sadly destroyed you are also slightly colder. -1 heat -1 strong shelter, ";
+          heat = heat - 1;
+          building.shelter2 = 0;
+        } else {
+          if (building.shelter == 1) {
+            building.shelter = 0;
+            ask.event += "some of your items were saved by the shelter but the shelter broke halfway through the night, you also got colder. -1 shelter -2 heat 1, you go out to survay the remains, ";
+            heat = heat - 2;
+            if (item.axe && Math.floor(Math.random() * (10) + 1) == 1) {
+              ask.event += "your axe is missing, ";
+              item.axe = 0;
+            }
+            if (item.pickaxe && Math.floor(Math.random() * (10) + 1) == 1) {
+              ask.event += "your pickaxe is missing, ";
+              item.pickaxe = 0;
+            }
+            if (item.knife && Math.floor(Math.random() * (10) + 1) == 1) {
+              ask.event += "your knife is missing, ";
+              item.knife = 0;
+            }
+            if (item.jacket && Math.floor(Math.random() * (10) + 1) == 1) {
+              ask.event += "your jacket is missing, ";
+              item.jacket = 0;
+            }
+            if(ask.event.includes("missing") == false){
+                            ask.event += "thankfully nothing was missing.";
+            }
+          } else {
+            ask.event += "many of your items are probably gone you are also much colder. -4 heat, you go out to survay the remains, ";
+            heat = heat - 4;
+            if (item.axe && Math.floor(Math.random() * (3) + 1) == 1) {
+              ask.event += "your axe is missing, ";
+              item.axe = 0;
+            }
+            if (item.pickaxe && Math.floor(Math.random() * (3) + 1) == 1) {
+              ask.event += "your pickaxe is missing, ";
+              item.pickaxe = 0;
+            }
+            if (item.knife && Math.floor(Math.random() * (3) + 1) == 1) {
+              ask.event += "your knife is missing, ";
+              item.knife = 0;
+            }
+            if (item.jacket && Math.floor(Math.random() * (3) + 1) == 1) {
+              ask.event += "your jacket is missing, ";
+              item.jacket = 0;
+            }
+                        if(ask.event.includes("missing") == false){
+                            ask.event += "thankfully nothing was missing.";
+            }
+          }
+        }
+        if (item.fire) {
+          ask.event = ask.event + "your fire went out from the storm, ";
+          item.fire = 0;
+        }
+        if (building.shed == 1 || building.shed2 == 1) {
+          ask.event += "thankfully your shed saved all your resorces.";
+        } else {
+          ask.event += "since all of your reasorses were left lying out almost none of it is still usable -" + Math.round(resource.sticks / 2) + " sticks, -" + Math.round(resource.stone / 2) + " stone -" + Math.round(resource.wood / 2) + " wood -" + Math.round(food.berries / 2) + " berries -" + Math.round(food.rawMeat / 2) + " raw meat -" + Math.round(food.cookedMeat / 2) + " cooked meat."; //no shed
+          resource.sticks -= Math.round(resource.sticks / 2);
+          resource.wood -= Math.round(resource.wood / 2);
+          resource.stone -= Math.round(resource.stone / 2);
+          food.berries -= Math.round(food.berries / 2);
+          food.cookedMeat -= Math.round(food.cookedMeat / 2);
+          food.rawMeat -= Math.round(food.rawMeat / 2);
+        }
+        event(ask.event);
+        nextThunderstorm = turn + Math.floor(Math.random() * (30 - 10 + 1) + 10);
+        variables();
+      }
+      //hunger
+      hunger = hunger + 1; //poison
+      if (areyoupoisoned == 1 || areyoupoisoned == 2 || areyoupoisoned == 3) {
+        hunger = hunger + 1;
+        areyoupoisoned = areyoupoisoned - 1;
+      }
+      //trade rates
+      trade.Rate = (Math.random() * (1.5 - 1.1 + 1) + 1.1);
+      trade.Stone = Math.round((trade.Ammount * trade.Rate) * Math.random() * (1.5 - 0.5 + 1) + 0.5);
+      trade.Wood = Math.round((trade.Ammount * trade.Rate) * Math.random() * (1.5 - 0.5 + 1) + 0.5);
+      trade.Stick = Math.round((trade.Ammount * trade.Rate) * Math.random() * (1.5 - 0.5 + 1) + 0.5);
+      trade.Ammount = Math.round(Math.random() * (15 - 3 + 1) + 3); //heat
+      heat -= 1;
+      if (item.fire == 1 || item.fire2 == 1) {
+        heat += 3;
+      }
+      if (building.shelter == 1 || building.shelter2 == 1) {
+        heat += 1;
+      }
+      if (item.jacket == 1) {
+        heat += 1;
+      }
+      if (item.blanket == 1 && heat < 20) {
+        heat += 1;
+      }
+      if (season == "Summer") {
+        heat += 3;
+      }
+      if (season == "Winter") {
+        heat -= 1;
+      }
+      if (season == "Spring") {
+        heat += 1;
+      }
+      //fire runing out
+      if (fireTurn + 3 < turn && item.fire == 1) {
+        popupText("your fire is about to run out of wood and die \nwood: " + resource.wood + "");
+        newPopupButton("save it with 2 wood", "firesave(2);");
+        newPopupButton("let it die", "firesave(0);");
+        showPopup();
+      }
+      //stranger
+      if (turn == nextStranger) {
+        if (building.stash == 0) {
+        popupText("A stranger comes up to you, he says if you give him 5 " + strangeResource + " he will come back with more.");
+        newPopupButton("Give the resorces", "strangerGive();");
+        newPopupButton("Ignore him", "strangerIgnore();");
+        showPopup();
+        } else {
+          if (random(1,2) == 1) {
+            popupText("A stranger seems to walk towards you but covers his nose and runs away instead.")
+            newPopupButton("Close", "strangerIgnore();")
+            showPopup();
+          } else {
+            popupText("A stranger seems to walk towards you but covers his nose. He starts to run away but instead, he comes up to you and says that he hates you, you stupid stash animal.")
+            newPopupButton("Close", "strangerIgnore();")
+            showPopup();
+          }
+        }
+      } else if (turn == nextStranger + 2) {
+        if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 3) {
+          event("the stranger comes back with a cart of " + strangeResource + " +20 " + strangeResource);
+          if (strangeResource == "sticks") {
+            resource.sticks += 20;
+          } else if (strangeResource == "stone") {
+            resource.stone += 20;
+          } else if (strangeResource == "wood") {
+            resource.wood += 20;
+          }
+          nextStranger = turn + Math.floor(Math.random() * (30 - 20 + 1) + 20);
+          if (1 == Math.floor(Math.random() * (1 - 2 + 1) + 2)) {
+            strangeResource = "sticks";
+          } else if (1 == Math.floor(Math.random() * (1 - 2 + 1) + 2)) {
+            strangeResource = "stone";
+          } else {
+            if ((item.axe == 1 || resource.wood != 0)) {
+              strangeResource = "wood";
+            } else {
+              strangeResource = "stone";
+            }
+          }
+        }
+      }
+      if (fire2Turn + 8 < turn && item.fire2 == 1) {
+        popupText("your big fire is about to run out of wood and die \nwood: " + resource.wood + "");
+        newPopupButton("save it with 3 wood", "firesave(3);");
+        newPopupButton("let it die", "firesave(0);");
+        showPopup();
+      }
+      //end of game
+      if (turn == 499) {
+        popupText("A rescue crew arives and you are saved. YOU WIN!!!");
+        newPopupButton("watch an ad to continue", "hidePopup();");
+        newPopupButton("new game", "hidePopup(); reset();");
+        showPopup();
+      }
+      //resource limits 
+      if (building.shed != 1 && building.shed2 != 1 && stash != 1) {
+        if (resource.wood > 4) {
+          resource.wood = 4;
+          event("you had more wood than you could store so you had to leave some behind.");
+        }
+        if (resource.stone > 3) {
+          resource.stone = 3;
+          event("you had more stone than you could store so you had to leave some behind.");
+        }
+        if (resource.sticks > 8) {
+          resource.sticks = 8;
+          event("you had more sticks than you could store so you had to leave some behind.");
+        }
+        if (food.berries > 10) {
+          food.berries = 10;
+          event("you had more berries than you could store so you had to leave some behind.");
+        }
+        if (food.cookedMeat > 3) {
+          food.cookedMeat = 3;
+          event("you had more cooked meat than you could store so you had to leave some behind.");
+        }
+        if (food.rawMeat > 3) {
+          food.rawMeat = 3;
+          event("you had more raw meat than you could store so you had to leave some behind.");
+        }
+        if (food.fish > 5) {
+          food.fish = 5;
+          event("you had more fish than you could store so you had to leave some behind.");
+        }
+        if (resource.fur > 6) {
+          resource.fur = 6;
+          event("you had more fur than you could store so you had to leave some behind.");
+        }
+        if (food.cookedFish > 5) {
+          food.cookedFish = 5;
+          event("you had more cooked fish than you could store so you had to leave some behind.");
+        }
+      } else if (building.shed == 1) {
+        if (resource.wood > 7) {
+          resource.wood = 7;
+          event("you had more wood than you could store so you had to leave some behind.");
+        }
+        if (resource.stone > 5) {
+          resource.stone = 5;
+          event("you had more stone than you could store so you had to leave some behind.");
+        }
+        if (resource.sticks > 15) {
+          resource.sticks = 15;
+          event("you had more sticks than you could store so you had to leave some behind.");
+        }
+        if (food.berries > 20) {
+          food.berries = 20;
+          event("you had more berries than you could store so you had to leave some behind.");
+        }
+        if (food.cookedMeat > 5) {
+          food.cookedMeat = 5;
+          event("you had more cooked meat than you could store so you had to leave some behind.");
+        }
+        if (food.rawMeat > 5) {
+          food.rawMeat = 5;
+          event("you had more raw meat than you could store so you had to leave some behind.");
+        }
+        if (food.fish > 7) {
+          food.fish = 7;
+          event("you had more fish than you could store so you had to leave some behind.");
+        }
+        if (food.cookedFish > 7) {
+          food.cookedFish = 7;
+          event("you had more cooked fish than you could store so you had to leave some behind.");
+        }
+        if (resource.fur > 10) {
+          resource.fur = 10;
+          event("you had more fur than you could store so you had to leave some behind.");
+        }
+      } else if (building.shed2 == 1) {
+        if (resource.wood > 10) {
+          resource.wood = 10;
+          event("you had more wood than you could store so you had to leave some behind.");
+        }
+        if (resource.stone > 8) {
+          resource.stone = 8;
+          event("you had more stone than you could store so you had to leave some behind.");
+        }
+        if (resource.sticks > 20) {
+          resource.sticks = 20;
+          event("you had more sticks than you could store so you had to leave some behind.");
+        }
+        if (food.berries > 25) {
+          food.berries = 25;
+          event("you had more berries than you could store so you had to leave some behind.");
+        }
+        if (food.cookedMeat > 7) {
+          food.cookedMeat = 7;
+          event("you had more cooked meat than you could store so you had to leave some behind.");
+        }
+        if (food.rawMeat > 7) {
+          food.rawMeat = 7;
+          event("you had more raw meat than you could store so you had to leave some behind.");
+        }
+        if (food.fish > 10) {
+          food.fish = 10;
+          event("you had more fish than you could store so you had to leave some behind.");
+        }
+        if (food.cookedFish > 10) {
+          food.cookedFish = 10;
+          event("you had more cooked fish than you could store so you had to leave some behind.");
+        }
+        if (resource.fur > 12) {
+          resource.fur = 12;
+          event("you had more fur than you could store so you had to leave some behind.");
+        }
+      } else if (building.stash == 1) {
+        if (resource.wood > 7) {
+          resource.wood = 7;
+          event("you had more wood than you could store so you had to leave some behind.");
+        }
+        if (resource.stone > 5) {
+          resource.stone = 5;
+          event("you had more stone than you could store so you had to leave some behind.");
+        }
+        if (resource.sticks > 15) {
+          resource.sticks = 15;
+          event("you had more sticks than you could store so you had to leave some behind.");
+        }
+        if (food.berries > 999999999999999999999) {
+          food.berries = 999999999999999999999;
+          event("you had more berries than you could store so you had to leave some behind.");
+        }
+        if (food.cookedMeat > 999999999999999999999) {
+          food.cookedMeat = 999999999999999999999;
+          event("you had more cooked meat than you could store so you had to leave some behind.");
+        }
+        if (food.rawMeat > 999999999999999999999) {
+          food.rawMeat = 999999999999999999999;
+          event("you had more raw meat than you could store so you had to leave some behind.");
+        }
+        if (food.fish > 999999999999999999999) {
+          food.fish = 999999999999999999999;
+          event("you had more fish than you could store so you had to leave some behind.");
+        }
+        if (food.cookedFish > 999999999999999999999) {
+          food.cookedFish = 999999999999999999999;
+          event("you had more cooked fish than you could store so you had to leave some behind.");
+        }
+        if (resource.fur > 10) {
+          resource.fur = 10;
+          event("you had more fur than you could store so you had to leave some behind.");
+        }
+      }
+      //die PS you did but it was an easy fix
+      if (hunger > 9 || heat < 1 || heat > 39 || mauled == 1) {
+        if (canDie == 1) {
+          if (hunger > 9) {
+            event("you are so hungry, you havent eaten in days you fell the world fading away. You are dead");
+            popupText("you died of hunger");
+            newPopupButton("new game", "hidePopup(); reset(); menu();");
+            showPopup();
+          } else {
+            if (heat == 0) {
+              event("You're so cold you cant move, you died");
+              popupText("You died of being too cold");
+              newPopupButton("new game", "hidePopup(); reset(); menu();");
+              showPopup();
+            } else if (heat > 39) {
+              event("you die from being too hot. lol its not that hard to get colder");
+              popupText("You died of being too hot");
+              newPopupButton("new game", "hidePopup(); reset(); menu();");
+              showPopup();
+            } else {
+              event("You won the 1 in 1000 lottery and were mauled to death by a wolf.");
+              popupText("You were mauled to death by a wolf.");
+              newPopupButton("new game", "hidePopup(); reset(); menu();");
+              showPopup();
+            }
+          }
+        } else {
+          event("You wouldve died but ur a dev lol noob");
+        }
+      }
+              //next turn
+        turn += 1;
+        menu();
+    }
+
+    function firesave(save) {
+      if (save == 2) {
+        if (resource.wood > 1) {
+          fireTurn = turn;
+          resource.wood = resource.wood - 2;
+          item.fire = 1;
+          event("you feed the fire with 3 logs and it does not go out");
+        } else {
+          item.fire = 0;
+          event("you did not have enough wood so the fire goes out");
+        }
+      } else if (save == 3) {
+        if (resource.wood >= 3) {
+          fireTurn = turn;
+          resource.wood = resource.wood - 2;
+          item.fire = 1;
+          event("you feed the big fire with 3 logs and it does not go out");
+        } else {
+          item.fire = 0;
+          event("you did not have enough wood so the big fire goes out");
+        }
+      } else {
+        event("the fire goes out");
+      }
+      hidePopup();
+    }
+
+    function craftsmanEscape(type) {
+      hidePopup();
+      if (type == "knife") {
+        canCraft = 0;
+        event("Sadly your beloved friend the craftsman committed suicide, you find his crafting table but you dont know how to use it");
+      } else {
+        canCraft = 0;
+        event("The craftsman runs off with his crafting table");
+      }
+    }
+
+    function reset() {
+      canDie = 1;
+      events = {
+        one: "",
+        two: "",
+        three: "",
+        four: "",
+        five: "",
+        six: "",
+        seven: "",
+        eight: "",
+        nine: "",
+        ten: ""
+      };
+      item = {
+        axe: 0,
+        pickaxe: 0,
+        fire: 0,
+        fire2: 0,
+        knife: 0,
+        jacket: 0,
+        medkit: 0,
+        blanket: 0,
+        fan: 0,
+        fishingRod: 0
+      };
+      resource = {
+        wood: 0,
+        stone: 0,
+        sticks: 0,
+        fur: 0
+      };
+      food = {
+        berries: 0,
+        rawMeat: 0,
+        cookedMeat: 0,
+        fish: 0,
+        cookedFish: 0
+      };
+      building = {
+        shelter: 0,
+        shelter2: 0,
+        shed: 0,
+        shed2: 0,
+        stash: 0
+      };
+      ask = {
+        do: "",
+        build: "",
+        craft: "",
+        event: "",
+        trade: "",
+        trade2: ""
+      };
+      trade = {
+        Stick: 1,
+        Wood: 1,
+        Stone: 1,
+        Rate: 1,
+        Ammount: 1
+      };
+      hunger = 0;
+      mauled = 0;
+      action = 0;
+      turn = 1;
+      whatCraft = "";
+      canCraft = 0;
+      crafterFindTurn = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+      fireTurn = "";
+      fire2Turn = "";
+      BuilderFindTurn = Math.floor(Math.random() * (40 - 20 + 1) + 20);
+      canBuild = "";
+      whatBuild = "";
+      areyoupoisoned = "";
+      nextThunderstorm = Math.floor(Math.random() * (30 - 20 + 1) + 20);
+      nextStranger = Math.floor(Math.random() * (30 - 20 + 1) + 20);
+      strangeResource = "stone";
+      whentrade = Math.floor(Math.random() * (55 - 40 + 1) + 40);
+      canTrade = 0;
+      heat = 35;
+      canDie = 1;
+      x = "";
+      searchNum = 0;
+      axetime = 0;
+      season = "Summer"
+      nextSeason = 15;
+      event("your plane just crashed in the jungle and you have to survive. You are the only survivor that you can see, they will notice and send a rescue crew but you dont know how long it will take");
+      menu();
+    }
+
+    function event(thing) {
+      document.getElementById("events").innerHTML = ("<p>" + thing + "</p>") + document.getElementById("events").innerHTML;
+      events.ten = events.nine;
+      events.nine = events.eight;
+      events.eight = events.seven;
+      events.seven = events.six;
+      events.six = events.five;
+      events.five = events.four;
+      events.four = events.three;
+      events.three = events.two;
+      events.two = events.one;
+      events.one = thing;
+    }
+
+    function newButton(text, functionToRun) {
+      document.getElementById("buttons").innerHTML += "<div><button class='button' onclick='" + functionToRun + "' >" + text + "</button></div>";
+    }
+
+    function clearButtons() {
+      document.getElementById("buttons").innerHTML = "";
+    }
+
+    function gainResource(lvl, type) {
+      if (lvl == 1) {
+        //spring
+        if (season == "Spring") {
+          springResource(type);
+          //summer
+        } else if (season == "Summer") {
+          summerResource(type);
+          //fall
+        } else if (season == "Fall") {
+          fallResource(type);
+          //winter
+        } else {
+          winterResource(type);
+        }
+      } else {
+        if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 3) {
+          if (type == "stone") {
+            event("You mine some stone, luckilly you managed to pick a good spot with a lot. +3 stone");
+            resource.stone += 3;
+          }
+        } else if (Math.floor(Math.random() * (3 - 1 + 1) + 1) == 3) {
+          if (type == "stone") {
+            event("You mine some stone, sadly the spot you mined in was mostly dirt. +1 stone");
+            resource.stone += 1;
+          }
+        } else {
+          if (type == "stone") {
+            event("You mine some stone +2 stone");
+            resource.stone += 2;
+          }
+        }
+      }
+      endOfTurn();
+    }
+    function winterResource(type) {
+      if (type == "berries") {
+        if (building.stash != 1) {
+          if (random(1, 2) == 1) {
+            event("You cant find any berries.");
+          } else if (random(1, 3) == 1) {
+            event("You find a berry bush but it is dead and all of its berries are gone.");
+          } else {
+            event("You search through the forest you find a frozen berry bush, it has one berry but it is rotten");
+          }
+        } else {
+          event("Berries wilt and rot in the prescence of the stench of that hole +0 berries")
+        }
+      } else if (type == "stone") {
+        if (random(1, 3) == 1) {
+          event("you search for rocks, luckilly you managed to find a bunch. +2 stone");
+          resource.stone += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search for rocks, but you found none. +0 stone");
+        } else {
+          event("you search for rocks, you find a few. +1 stone");
+          resource.stone += 1;
+        }
+      } else if (type == "sticks") {
+        if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, luckily you managed to find a bunch. +2 sticks");
+          resource.sticks += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, but you found none. +0 sticks");
+        } else {
+          event("you search through the forest for sticks, you find a few. +1 sticks");
+          resource.sticks += 1;
+        }
+      } else if (type == "meat") {
+        if (building.stash != 1) {
+          if (random(1, 3) == 1) {
+            x = Math.round(Math.random() * (3 - 2 + 1) + 2);
+            event("you find a deer and kill it. It is quite lean due to the lack of food options. +1 raw meat +" + x + " fur");
+            resource.fur += x;
+            food.rawMeat += 1;
+          } else if (random(1, 3) == 1) {
+            event("You look for animals to kill for food but hours pass and you dont find any. +0 raw meat");
+          } else {
+            event("You find a rabbit but becuse of the snow you cant get it. +0 raw meat");
+          }
+        } else {
+          event("The stench from the hole instantly kills and decays animals and you can tell they are inedible. +0 +meat")
+        }
+      } else if (type == "wood") {
+        if (random(1, 3) == 1) {
+          event("You chop down a small tree, luckily the wood was in perfect condtiton. +2 wood");
+          resource.wood += 2;
+        } else if (random(1, 3) == 1) {
+          event("You chop down a tree, sadly it turned out the tree was dead and all the wood was rotten. +0 wood");
+        } else {
+          event("You chop down a small tree, most of the wood is usable. +1 wood");
+          resource.wood += 1;
+        }
+      }
+    }
+    function fallResource(type) {
+      if (type == "berries") {
+        if (building.stash != 1) {
+          if (random(1, 3) == 1) {
+            event("You find a berry bush full of berries +4 berries");
+            food.berries += 4;
+          } else if (random(1, 3) == 1) {
+            event("you search through the forest for berries, after a while you only find some. +1 berries");
+            food.berries += 1
+          } else {
+            event("you search through the forest for you find a small berry plant. +2 berries");
+            food.berries += 2;
+          }
+        } else {
+          event("The scent emantating from you after resorting to make a stash makes any berries you find wilt +0 berries")
+        }
+      } else if (type == "stone") {
+        if (random(1, 3) == 1) {
+          event("you search for rocks, luckilly you managed to find a bunch. +2 stone");
+          resource.stone += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search for rocks, but you found none. +0 stone");
+        } else {
+          event("you search for rocks, you find a few. +1 stone");
+          resource.stone += 1;
+        }
+      } else if (type == "sticks") {
+        if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, luckilly you managed to find a bunch. +2 sticks");
+          resource.sticks += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, but you found none. +0 sticks");
+        } else {
+          event("you search through the forest for sticks, you find a few. +1 sticks");
+          resource.sticks += 1;
+        }
+      } else if (type == "meat") {
+        if (building.stash != 1) {
+          if (random(1, 3) == 1) {
+            x = Math.round(Math.random() * (4 - 3 + 1) + 3);
+            event("As you hunt a wolf attacks you, you manage to kill it. +2 raw meat +" + x + " fur");
+            resource.fur += x;
+            food.rawMeat += 2;
+          } else if (random(1, 3) == 1) {
+            event("You look for animals to kill for food but hours pass and you dont find any. +0 raw meat");
+          } else {
+            x = Math.round(Math.random() * (3 - 2 + 1) + 2);
+            event("You find a rabbit and kill it. +1 raw meat and +" + x + " fur");
+            food.rawMeat += 1;
+            resource.fur += x;
+          }
+        } else {
+          event("Animals drop dead at the stench of the hole when you get close to them. You find their bodies are to rotten to consume +0 berries")
+        }
+      } else if (type == "wood") {
+        if (random(1, 3) == 1) {
+          event("You chop down a small tree, luckily the wood was in perfect condtiton. +2 wood");
+          resource.wood += 2;
+        } else if (random(1, 3) == 1) {
+          event("You chop down a tree, sadly it turned out the tree was dead and all the wood was rotten. +0 wood");
+        } else {
+          event("You chop down a small tree, most of the wood is usable. +1 wood");
+          resource.wood += 1;
+        }
+      }
+    }
+    function summerResource(type) {
+      if (building.stash != 1) {
+        if (type == "berries") {
+          if (random(1, 3) == 1) {
+            event("you search through the forest for berries, luckilly you managed to find a bunch. +2 berries");
+            food.berries += 2;
+          } else if (random(1, 3) == 1) {
+            event("you search through the forest for berries, but you found none. +0 berries");
+          } else {
+            event("you search through the forest for berries, you find a few. +1 berries");
+            food.berries += 1;
+          }
+        } else {
+          event("The scent emantating from you after resorting to make a stash makes any berries you find wilt +0 berries")
+        }
+      } else if (type == "stone") {
+        if (random(1, 3) == 1) {
+          event("you search for rocks, luckilly you managed to find a bunch. +2 stone");
+          resource.stone += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search for rocks, but you found none. +0 stone");
+        } else {
+          event("you search for rocks, you find a few. +1 stone");
+          resource.stone += 1;
+        }
+      } else if (type == "sticks") {
+        if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, luckilly you managed to find a bunch. +2 sticks");
+          resource.sticks += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, but you found none. +0 sticks");
+        } else {
+          event("you search through the forest for sticks, you find a few. +1 sticks");
+          resource.sticks += 1;
+        }
+      } else if (type == "meat") {
+        if (random(1, 3) == 1) {
+          x = Math.round(Math.random() * (4 - 3 + 1) + 3);
+          event("As you hunt a wolf attacks you, you manage to kill it. +2 raw meat +" + x + " fur");
+          resource.fur += x;
+          food.rawMeat += 2;
+        } else if (random(1, 3) == 1) {
+          event("You look for animals to kill for food but hours pass and you dont find any. +0 raw meat");
+        } else {
+          x = Math.round(Math.random() * (3 - 2 + 1) + 2);
+          event("You find a rabbit and kill it. +1 raw meat and +" + x + " fur");
+          food.rawMeat += 1;
+          resource.fur += x;
+        }
+
+      } else if (type == "wood") {
+        if (random(1, 3) == 1) {
+          event("You chop down a small tree, luckily the wood was in perfect condtiton. +2 wood");
+          resource.wood += 2;
+        } else if (random(1, 3) == 1) {
+          event("You chop down a tree, sadly it turned out the tree was dead and all the wood was rotten. +0 wood");
+        } else {
+          event("You chop down a small tree, most of the wood is usable. +1 wood");
+          resource.wood += 1;
+        }
+      }
+    }
+    function springResource(type) {
+      if (type == "berries") {
+        if (random(1, 3) == 1) {
+          event("you search through the forest for berries, you find a berry bush but the berries arent ripe +0 berries");
+        } else if (random(1, 3) == 1) {
+          event("you search through the forest for berries, but all you find is a dead berry bush +0 berries");
+        } else {
+          event("you search through the forest for berries, you find a dead berry bush, thankfully one of its berries was salvigable. +1 berries");
+          food.berries += 1;
+        }
+      } else if (type == "stone") {
+        if (random(1, 3) == 1) {
+          event("you search for rocks, luckilly you managed to find a bunch. +2 stone");
+          resource.stone += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search for rocks, but you found none. +0 stone");
+        } else {
+          event("you search for rocks, you find a few. +1 stone");
+          resource.stone += 1;
+        }
+      } else if (type == "sticks") {
+        if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, luckilly you managed to find a bunch. +2 sticks");
+          resource.sticks += 2;
+        } else if (random(1, 3) == 1) {
+          event("you search through the forest for sticks, but you found none. +0 sticks");
+        } else {
+          event("you search through the forest for sticks, you find a few. +1 sticks");
+          resource.sticks += 1;
+        }
+      } else if (type == "meat") {
+        if (random(1, 3) == 1) {
+          x = Math.round(Math.random() * (4 - 3 + 1) + 3);
+          if (random(1, 1000) != 420) {
+            event("As you hunt a wolf attacks you, you manage to kill it. +2 raw meat +" + x + " fur");
+            resource.fur += x;
+            food.rawMeat += 2;
+          } else {
+            mauled = 1;
+          }
+        } else if (random(1, 3) == 1) {
+          event("You look for animals to kill for food but hours pass and you dont find any. +0 raw meat");
+        } else {
+          x = Math.round(Math.random() * (3 - 2 + 1) + 2);
+          event("You find a rabbit and kill it. +1 raw meat and +" + x + " fur");
+          food.rawMeat += 1;
+          resource.fur += x;
+        }
+      } else if (type == "wood") {
+        if (random(1, 3) == 1) {
+          event("You chop down a small tree, luckily the wood was in perfect condtiton. +2 wood");
+          resource.wood += 2;
+        } else if (random(1, 3) == 1) {
+          event("You chop down a tree, sadly it turned out the tree was dead and all the wood was rotten. +0 wood");
+        } else {
+          event("You chop down a small tree, most of the wood is usable. +1 wood");
+          resource.wood += 1;
+        }
+      }
+    }
+    //eating functions
+    function eatBerries() {
+      if (hunger != 0) {
+        if (food.berries > 0) {
+          event("you eat berries");
+          food.berries = food.berries - 1;
+          hunger = hunger - 2;
+          if (hunger < 0) {
+            hunger = 0;
+          }
+        } else {
+          event("you do not have any berries");
+        }
+        variables();
+        eat();
+      } else {
+        event("you are not hungry");
+        menu();
+      }
+    }
+
+    function eatRaw() {
+      if (hunger != 0) {
+        if (food.rawMeat > 0) {
+          food.rawMeat = food.rawMeat - 1;
+          hunger = hunger - 3;
+          event("you eat raw meat");
+          areyoupoisoned = Math.floor(Math.random() * (18 - 3 + 1) + 3);
+          if (areyoupoisoned == 3) {
+            event("you got food poisining from the meat, for the next 3 turns you will get one more hunger per turn");
+          }
+          if (hunger < 0) {
+            hunger = 0;
+          }
+        } else {
+          event("you do not have any raw meat");
+        }
+        variables();
+        eat();
+      } else {
+        event("you are not hungry");
+        menu();
+      }
+    }
+
+    function eatFish(type) {
+      if (hunger != 0) {
+        if (type == 'raw') {
+          if (food.fish > 0) {
+            event("you eat raw fish -2 hunger");
+            areyoupoisoned = Math.floor(Math.random() * (18 - 3 + 1) + 3);
+            if (areyoupoisoned == 3) {
+              event("you got food poisoning from the fish, for the next 3 turns you will get one more hunger per turn");
+            }
+            hunger -= 2;
+          } else {
+            event("you do not have any raw fish");
+          }
+          variables();
+          eat();
+        } else {
+          if (food.cookedFish > 0) {
+            event("you eat cooked fish -4 hunger");
+            areyoupoisoned = Math.floor(Math.random() * (18 - 3 + 1) + 3);
+            hunger -= 4;
+          } else {
+            event("you do not have any cooked fish");
+          }
+          variables();
+          eat();
+        }
+      } else {
+        event("you are not hungry");
+        menu();
+      }
+    }
+
+    function eatCooked() {
+      if (hunger != 0) {
+        if (food.cookedMeat > 0) {
+          event("you eat cooked meat");
+          food.cookedMeat = food.cookedMeat - 1;
+          hunger = hunger - 5;
+          if (hunger < 0) {
+            hunger = 0;
+          }
+        } else {
+          event("you do not have any cooked meat");
+        }
+        variables();
+        eat();
+      } else {
+        event("you are not hungry");
+        menu();
+      }
+    }
+    //crafting functions
+
+    function craftKnife() {
+      if (resource.stone > 2) {
+        if (item.knife == 0) {
+          event("you craft a knife");
+          item.knife = 1;
+          resource.stone = resource.stone - 3;
+          endOfTurn();
+        } else {
+          event("you already have a knife");
+        }
+      } else {
+        event("you do not have enough stone");
+      }
+    }
+
+    function craftFishRod() {
+      if (resource.sticks > 1 && resource.fur > 5) {
+        if (item.fishingRod == 0) {
+          event("you craft a fishing rod");
+          item.fishingRod = 1;
+          resource.sticks = resource.sticks - 2;
+          resource.fur = resource.fur - 6;
+          endOfTurn();
+        } else {
+          event("you already have a fishing rod");
+        }
+      } else if (resource.sticks < 2) {
+        event("you do not have enough sticks");
+      } else {
+        event("you do not have enough fur");
+      }
+    }
+
+    function craftJacket() {
+      if (resource.fur > 11) {
+        if (item.jacket == 0) {
+          event("you craft a jacket");
+          item.jacket = 1;
+          resource.fur = resource.fur - 12;
+          endOfTurn();
+        } else {
+          event("you already have a jacket");
+        }
+      } else {
+        event("you do not have enough fur");
+      }
+    }
+
+    function craftAxe() {
+      if (resource.stone > 1 && resource.sticks > 1) {
+        if (item.axe == 0) {
+          event("you craft a axe");
+          item.axe = 1;
+          resource.stone = resource.stone - 2;
+          resource.sticks = resource.sticks - 2;
+          endOfTurn();
+        } else {
+          event("you already have a axe");
+        }
+      } else {
+        if (resource.stone < 2) {
+          event("you do not have enough stone");
+        } else {
+          event("you do not have enough sticks");
+        }
+      }
+    }
+
+    function craftFire() {
+      if (resource.sticks > 2 && resource.wood > 2) {
+        if (item.fire == 0 || item.fire2 == 0) {
+          event("you craft a fire");
+          item.fire = 1;
+          fireTurn = turn;
+          resource.sticks = resource.sticks - 3;
+          resource.wood = resource.wood - 3;
+          endOfTurn();
+        } else {
+          event("you already have a fire");
+        }
+      } else {
+        if (resource.sticks < 3) {
+          event("you do not have enough sticks");
+        } else {
+          event("you do not have enough wood");
+        }
+      }
+    }
+
+    function craftBFire() {
+      if (resource.sticks > 9 && resource.wood > 5) {
+        if (item.fire2 == 0 || item.fire == 0) {
+          event("you craft a big fire");
+          item.fire = 1;
+          fire2Turn = turn;
+          resource.sticks = resource.sticks - 10;
+          resource.wood = resource.wood - 5;
+          endOfTurn();
+        } else {
+          event("you already have a fire");
+        }
+      } else {
+        if (resource.sticks < 10) {
+          event("you do not have enough sticks");
+        } else {
+          event("you do not have enough wood");
+        }
+      }
+    }
+
+    function craftPic() {
+      if (resource.stone > 2 && resource.sticks > 1) {
+        if (item.pickaxe == 0) {
+          event("you craft a pickaxe");
+          item.pickaxe = 1;
+          resource.stone = resource.stone - 3;
+          resource.sticks = resource.sticks - 2;
+          endOfTurn();
+        } else {
+          event("you already have a pickaxe");
+        }
+      } else {
+        if (resource.stone < 3) {
+          event("you do not have enough stone");
+        } else {
+          event("you do not have enough sticks");
+        }
+      }
+    }
+
+    function craftSticks() {
+      if (resource.wood > 0) {
+        event("you craft 4 sticks");
+        resource.wood = resource.wood - 1;
+        resource.sticks = resource.sticks + 4;
+        endOfTurn();
+      } else {
+        event("you do not have enough wood");
+      }
+    }
+    //building functions
+
+    function buildShelter() {
+      if (resource.wood > 5 && resource.stone > 2) {
+        if (building.shelter == 0) {
+          building.shelter = 1;
+          resource.wood = resource.wood - 6;
+          resource.stone = resource.stone - 3;
+          endOfTurn();
+        } else {
+          event("you already have a shelter");
+        }
+      } else {
+        if (resource.wood < 6) {
+          event("you do not have enough wood");
+        } else {
+          event("you do not have enough stone");
+        }
+      }
+    }
+
+    function buildSShelter() {
+      if (resource.wood > 14 && resource.stone > 4) {
+        if (building.shelter == 0) {
+          building.shelter2 = 1;
+          resource.wood = resource.wood - 15;
+          resource.stone = resource.stone - 5;
+          endOfTurn();
+        } else {
+          event("you already have a strong shelter");
+        }
+      } else {
+        if (resource.wood < 15) {
+          event("you do not have enough wood");
+        } else {
+          event("you do not have enough stone");
+        }
+      }
+    }
+
+    function showPopup() {
+      document.querySelector("#overlay").style.display = "block";
+    }
+
+    function secret(hide) {
+      if (hide == 1) {
+        document.querySelector("#secret").style.display = "block";
+      } else {
+        document.querySelector("#secret").style.display = "none";
+      }
+    }
+
+    function hidePopup() {
+      document.querySelector("#overlay").style.display = "none";
+    }
+
+    function popupText(thing) {
+      document.getElementById("popup").innerHTML = ("<p class='popupText' >" + thing + "</p>");
+    }
+
+    function newPopupButton(text, functionToRun) {
+      document.getElementById("popup").innerHTML += "<button class='popupButton' onclick='" + functionToRun + "' >" + text + "</button>";
+    }
+
+    function clearPopup() {
+      document.getElementById("popup").innerHTML = "";
+    }
+
+    function setStorage(name, value) {
+      localStorage.setItem(name, value);
+    }
+
+    function savegame() {
+      console.log("saved");
+      setStorage("axe", item.axe);
+      setStorage("pickaxe", item.pickaxe);
+      setStorage("fire2Turn", fire2Turn);
+      setStorage("fire", item.fire);
+      setStorage("jacket", item.jacket);
+      setStorage("strangeResource", strangeResource);
+      setStorage("nextStranger", nextStranger);
+      setStorage("knife", item.knife);
+      setStorage("fire2", item.fire2);
+      setStorage("wood", resource.wood);
+      setStorage("stone", resource.stone);
+      setStorage("axetime", axetime);
+      setStorage("knifetime", knifetime);
+      setStorage("picktime", picktime);
+      setStorage("fishtime", fishtime);
+      setStorage("sticks", resource.sticks);
+      setStorage("hole", holeTurn);
+      setStorage("season", season);
+      setStorage("nextSeason", nextSeason);
+      setStorage("fur", resource.fur);
+      setStorage("berries", food.berries);
+      setStorage("rfish", food.fish);
+      setStorage("cfish", food.cookedFish);
+      setStorage("rMeat", food.rawMeat);
+      setStorage("cMeat", food.cookedMeat);
+      setStorage("shelter", building.shelter);
+      setStorage("shelter2", building.shelter2);
+      setStorage("shed", building.shed);
+      setStorage("shed2", building.shed2);
+      setStorage("Tstick", trade.Stick);
+      setStorage("Twood", trade.Wood);
+      setStorage("Tstone", trade.Stone);
+      setStorage("Trate", trade.Rate);
+      setStorage("Tammount", trade.Ammount);
+      setStorage("fan", item.fan);
+      setStorage("blanket", item.blanket);
+      setStorage("medkit", item.medkit);
+      setStorage("hunger", hunger);
+      setStorage("turn", turn);
+      setStorage("canCraft", canCraft);
+      setStorage("fireTurn", fireTurn);
+      setStorage("canBuild", canBuild);
+      setStorage("areyoupoisoned", areyoupoisoned);
+      setStorage("nextThunderstorm", nextThunderstorm);
+      setStorage("canTrade", canTrade);
+      setStorage("heat", heat);
+      setStorage("canDie", canDie);
+      setStorage("item", item);
+      setStorage("meatTime", meatTime);
+      setStorage("cmeatTime", cmeatTime);
+      setStorage("e1", events.one);
+      setStorage("e2", events.two);
+      setStorage("e3", events.three);
+      setStorage("e4", events.four);
+      setStorage("e5", events.five);
+      setStorage("e6", events.six);
+      setStorage("e7", events.seven);
+      setStorage("e8", events.eight);
+      setStorage("e9", events.nine);
+      setStorage("e10", events.ten);
+    }
+
+    function updateCost() {
+      x = parseInt(document.getElementById("getNum").value) / trade.Ammount;
+      if (document.getElementById("give").value == "Wood") {
+        document.getElementById("giveNum").innerHTML = "give " + Math.round(trade.Wood * x);
+      } else if (document.getElementById("give").value == "Stone") {
+        document.getElementById("giveNum").innerHTML = "give " + Math.round(trade.Stone * x);
+      } else {
+        document.getElementById("giveNum").innerHTML = "give " + Math.round(trade.Stick * x);
+      }
+    }
+
+    function updateInfo(type) {
+      if (type == "build") {
+        if (document.getElementById("build").value == "Shelter") {
+          document.getElementById("info").innerHTML = "protects items from thunderstorms and keeps you warm costs 6 wood 3 stone";
+        } else if (document.getElementById("build").value == "Strong Shelter") {
+          document.getElementById("info").innerHTML = "protects items from thunderstorms even more and keeps you warm costs 15 wood 5 stone";
+        } else if (document.getElementById("build").value == "Shed") {
+          document.getElementById("info").innerHTML = "lets you to store more stuff and protects resources from thunderstorms for just 4 wood 3 stone";
+        } else if (document.getElementById("build").value == "Big Shed") {
+          document.getElementById("info").innerHTML = "allows you to store basically infinite stuff and protects resources from thunderstorm just as well costs 7 wood 2 sticks 5 stone";
+        }
+      } else {
+        if (document.getElementById("craft").value == "Knife") {
+          document.getElementById("info").innerHTML = "lets you hunt costs 3 stone";
+        } else if (document.getElementById("craft").value == "Axe") {
+          document.getElementById("info").innerHTML = "lets you participate in deforistation costs 2 stone 2 sticks";
+        } else if (document.getElementById("craft").value == "Fire") {
+          document.getElementById("info").innerHTML = "cooks meat and heats you costs 3 sticks 4 wood";
+        } else if (document.getElementById("craft").value == "Big Fire") {
+          document.getElementById("info").innerHTML = "cooks more meat and heats you more costs 6 wood 10 sticks";
+        } else if (document.getElementById("craft").value == "Pickaxe") {
+          document.getElementById("info").innerHTML = "gets stone faster costs 3ston 2 sticks";
+        } else if (document.getElementById("craft").value == "Sticks") {
+          document.getElementById("info").innerHTML = "its litterally 4 sticks costs 1 wood";
+        } else if (document.getElementById("craft").value == "Jacket") {
+          document.getElementById("info").innerHTML = "";
+          document.getElementById("info").innerHTML = "keeps you warm costs 12 fur";
+        } else if (document.getElementById("craft").value == "Fishing Rod") {
+          document.getElementById("info").innerHTML = "allows you to fish(duh) costs 6 fur 2 sticks";
+        }
+      }
+    }
+
+    function cooking() {
+      if (document.getElementById("cook").value == "raw meat") {
+        event("you cook raw meat +1 cooked meat -1 raw meat");
+        food.rawMeat -= 1;
+        food.cookedMeat += 1;
+      } else if (document.getElementById("cook").value == "fish") {
+        event("you cook fish +2 cooked fish -2 fish");
+        food.fish -= 2;
+        food.cookedFish += 2;
+      } else {
+        event("you put your " + document.getElementById("cook").value + " over the fire, it burns -1 " + document.getElementById("cook").value);
+        if (document.getElementById("cook").value == "blanket") {
+          item.blanket -= 1;
+        } else if (document.getElementById("cook").value == "cooked meat") {
+          food.cookedMeat -= 1;
+        } else if (document.getElementById("cook").value == "cooked fish") {
+          food.cookedFish -= 1;
+        }
+      }
+      endOfTurn();
+    }
+
+    function doTrade() {
+      x = parseInt(document.getElementById("getNum").value) / trade.Ammount;
+      if (document.getElementById("give").value == "Wood") {
+        if (Math.round(trade.Wood * x) <= resource.wood) {
+          resource.wood -= Math.round(trade.Wood * x);
+        } else {
+          event("You dont have enough wood.");
+          x = "fail";
+        }
+      } else if (document.getElementById("give").value == "Stone") {
+        if (Math.round(trade.Stone * x) <= resource.stone) {
+          resource.stone -= Math.round(trade.Stone * x);
+        } else {
+          event("You dont have enough stone.");
+          x = "fail";
+        }
+      } else {
+        if (Math.round(trade.Stick * x) <= resource.sticks) {
+          resource.sticks -= Math.round(trade.Stick * x);
+        } else {
+          event("You dont have enough sticks.");
+          x = "fail";
+        }
+      }
+      if (x != "fail") {
+        if (document.getElementById("get").value == "Wood") {
+          resource.wood += parseInt(document.getElementById("getNum").value);
+        } else if (document.getElementById("get").value == "Stone") {
+          resource.stone += parseInt(document.getElementById("getNum").value);
+        } else {
+          resource.sticks += parseInt(document.getElementById("getNum").value);
+        }
+      }
+      variables();
+    }
+
+    function buildShed() {
+      if (resource.wood > 3 && resource.stone > 2) {
+        if (building.shed == 0) {
+          building.shed = 1;
+          resource.wood = resource.wood - 4;
+          resource.stone = resource.stone - 2;
+          endOfTurn();
+        } else {
+          event("you already have a shed");
+        }
+      } else {
+        if (resource.wood < 6) {
+          event("you do not have enough wood");
+        } else {
+          event("you do not have enough stone");
+        }
+      }
+    }
+    function stash() {
+      building.stash = 1;
+      //remove button
+    }
+    function buildBShed() {
+      if (resource.wood > 6 && resource.stone > 4 && resource.sticks > 1) {
+        if (building.shed2 == 0) {
+          building.shed2 = 1;
+          resource.wood = resource.wood - 7;
+          resource.stone = resource.stone - 5;
+          resource.sticks = resource.sticks - 2;
+          endOfTurn();
+        } else {
+          event("you already have a big shed");
+        }
+      } else {
+        if (resource.wood < 6) {
+          event("you do not have enough wood");
+        } else if (resource.stone < 5) {
+          event("you do not have enough stone");
+        } else {
+          event("you do not have enough sticks");
+        }
+      }
+    }
+
+    function strangerIgnore() {
+      hidePopup();
+      event("you send the stranger off without any resorces");
+      nextStranger = turn + Math.floor(Math.random() * (30 - 20 + 1) + 20);
+      if (1 == Math.floor(Math.random() * (1 - 2 + 1) + 2)) {
+        strangeResource = "sticks";
+      } else if (1 == Math.floor(Math.random() * (1 - 2 + 1) + 2)) {
+        strangeResource = "stone";
+      } else {
+        if ((item.axe == 1 || resource.wood != 0)) {
+          strangeResource = "wood";
+        } else {
+          strangeResource = "stone";
+        }
+      }
+    }
+
+    function strangerGive() {
+      hidePopup();
+      if (strangeResource == "stone") {
+        if (resource.stone > 4) {
+          resource.stone -= 5;
+          event("you give the stranger 5 stone he swears he will come back");
+        } else {
+          event("you didnt have enough stone so you had to send the stranger off without any");
+        }
+      } else if (strangeResource == "sticks") {
+        if (resource.sticks > 4) {
+          resource.sticks -= 5;
+          event("you give the stranger 5 sticks he swears he will come back");
+        } else {
+          event("you didnt have enough sticks so you had to send the stranger off without any");
+        }
+      } else if (strangeResource == "wood") {
+        if (resource.wood > 4) {
+          resource.wood -= 5;
+          event("you give the stranger 5 wood he swears he will come back");
+        } else {
+          event("you didnt have enough wood so you had to send the stranger off without any");
+        }
+      }
+    }
+
+    function random(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function getStorage(name) {
+      if (isNaN(localStorage.getItem(name)) == true || localStorage.getItem(name) == null) {
+        return localStorage.getItem(name);
+      } else {
+        return parseInt(localStorage.getItem(name));
+      }
+    }
+
+    function startDropdown(id) {
+      document.getElementById("buttons").innerHTML += "<select id='" + id + "'></select>";
+    }
+
+    function addToDropdown(text, id) {
+      document.getElementById(id).innerHTML += "<option>" + text + "</option>";
+    }
+  </script>
+</body>

@@ -1,0 +1,33 @@
+    html,
+    body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+    #canvas {
+      display:none;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+    }
+  #button {
+     right:0; 
+     left:0; 
+     top:0; 
+     bottom:0; 
+    margin:auto;
+    position:absolute;
+    background-color:lightblue;
+    border-width:3px;
+    border-color:black;
+    border-radius: 100px;
+    width:250px;
+    height:100px;
+    font-size: 50px;
+    color: black;      
+    z-index: 1000;
+  }
